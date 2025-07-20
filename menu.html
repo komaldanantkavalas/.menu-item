@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <title>हॉटेल मेन्यू</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .menu-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .menu-card {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .menu-item {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      width: calc(50% - 10px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .menu-details {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .menu-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .price-qty {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .price {
+      font-size: 16px;
+      color: #333;
+    }
+
+    select {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .bill {
+      background: #f0fff0;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    @media(max-width: 768px) {
+      .menu-item {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="menu-container">
+  <h2>🍽️ हॉटेल मेन्यू कार्ड</h2>
+
+  <div class="input-group">
+    <label>🪑 टेबल नंबर / पार्सल:</label>
+    <input type="text" id="tableNo" placeholder="उदा. 3 किंवा पार्सल" style="width:100%; padding:10px; margin-top:5px;">
+  </div>
+
+  <div class="menu-card">
+
+    <div class="menu-item">
+      <img src=".vscode/Vada-Pav_VC.jpg" alt="वडापाव">
+      <div class="menu-details">
+        <span class="menu-name">वडापाव</span>
+        <div class="price-qty">
+          <span class="price">₹15</span>
+          <select class="qty" data-name="वडापाव" data-price="15">
+            <option value="0">0</option><option value="1">1</option>
+            <option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src=".vscode/misalpav.jpg" alt="मिसळपाव">
+      <div class="menu-details">
+        <span class="menu-name">मिसळपाव</span>
+        <div class="price-qty">
+          <span class="price">₹30</span>
+          <select class="qty" data-name="मिसळपाव" data-price="30">
+            <option value="0">0</option><option value="1">1</option>
+            <option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src=".vscode/Pohe.jpg" alt="पोहे">
+      <div class="menu-details">
+        <span class="menu-name">पोहे</span>
+        <div class="price-qty">
+          <span class="price">₹20</span>
+          <select class="qty" data-name="पोहे" data-price="20">
+            <option value="0">0</option><option value="1">1</option>
+            <option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <img src=".vscode/sheera.jpg" alt="शिरा">
+      <div class="menu-details">
+        <span class="menu-name">शिरा</span>
+        <div class="price-qty">
+          <span class="price">₹25</span>
+          <select class="qty" data-name="शिरा" data-price="25">
+            <option value="0">0</option><option value="1">1</option>
+            <option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <button onclick="submitOrder()">🧾 ऑर्डर सबमिट करा</button>
+
+  <div class="bill" id="billSection">
+    <h3>🧾 तुमची ऑर्डर</h3>
+    <div id="billText"></div>
+    <button onclick="window.print()">🖨️ प्रिंट करा</button>
+  </div>
+</div>
+
+<script>
+  function submitOrder() {
+    const tableNo = document.getElementById('tableNo').value.trim();
+    const items = document.querySelectorAll('.qty');
+    let selected = [];
+    let total = 0;
+
+    items.forEach(item => {
+      const qty = parseInt(item.value);
+      const name = item.dataset.name;
+      const price = parseInt(item.dataset.price);
+      if (qty > 0) {
+        selected.push(`${name} × ${qty} = ₹${qty * price}`);
+        total += qty * price;
+      }
+    });
+
+    if (!tableNo || selected.length === 0) {
+      alert("कृपया टेबल नंबर आणि किमान एक पदार्थ निवडा.");
+      return;
+    }
+
+    document.getElementById('billText').innerHTML = `
+      <p><strong>टेबल / पार्सल:</strong> ${tableNo}</p>
+      <p><strong>पदार्थ:</strong><br>${selected.join('<br>')}</p>
+      <p><strong>एकूण:</strong> ₹${total}</p>
+    `;
+    document.getElementById('billSection').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
